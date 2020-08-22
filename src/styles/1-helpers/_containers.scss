@@ -1,0 +1,19 @@
+.container,
+.text-container {
+    padding: 0 1rem;
+}
+
+
+@include mq('med') {
+    .container {
+        max-width: 90%;
+        margin: 0 auto;
+        padding: 0;
+    }
+}
+
+@include mq('large') {
+    .container {
+        max-width: 85%;
+    }
+}

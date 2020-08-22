@@ -1,0 +1,8 @@
+.layout {
+    @include flex($dir:column);
+    min-height: 100vh;
+}
+
+// .layout-padding {
+//     padding-top: 70px;
+// }

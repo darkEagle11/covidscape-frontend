@@ -1,0 +1,35 @@
+@import '../../styles/defaultImports.scss';
+
+.Product {
+    width: 100%;
+}
+
+.ProductImg {
+    @include gatsby-image-full($directParent: true);
+    @include square(100%);
+}
+
+
+
+.CategoryDetails,
+.ProductDetails {
+    margin-top: 10px;
+}
+
+//Category Details
+.CategoryItems {
+    font-size: 16px;
+    margin: 2px 0;
+}
+
+.CategoryTitle {
+    font-size: 20px;
+    margin: 2px 0;
+}
+
+//Product Details
+.ProductTitle,
+.ProductPrice {
+    font-size: 18px;
+    margin: 2px 0;
+}
