@@ -1,5 +1,6 @@
 .nav {
     @include position($p:fixed, $zIndex:1000, $top:0, $left:0);
+    box-shadow: $d-box-shadow;
     width: 100%;
     background: white;
     display: grid;
@@ -17,6 +18,10 @@
     @include flex($center:center);
 }
 
+.nav__search-icon {
+    font-size: 20px;
+}
+
 .nav__page-links,
 .nav__user-section {
     display: flex;
@@ -25,4 +30,12 @@
 
 .nav__user-section {
     justify-content: flex-end;
+}
+
+.nav__cart-num {
+    @include rounded(27px);
+    @include flex($center:true);
+    background: black;
+    padding-top: 3px;
+    color: white;
 }

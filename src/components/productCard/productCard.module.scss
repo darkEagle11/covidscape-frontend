@@ -1,18 +1,46 @@
 @import '../../styles/defaultImports.scss';
 
+$product-btn-brdr-color: 1px solid rgb(231, 231, 231);
+
 .Product {
     width: 100%;
 }
 
 .ProductImg {
+    position: relative;
+    z-index: -2;
     @include gatsby-image-full($directParent: true);
     @include square(100%);
 }
 
+.ProductBtns {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
 
+    & .ProductBtn:first-child {
+        border-left: $product-btn-brdr-color;
+    }
+}
 
-.CategoryDetails,
-.ProductDetails {
+.ProductBtn {
+    @include flex($center:true);
+    flex: 1 1 0;
+    background: white;
+    border: $product-btn-brdr-color;
+    border-left: none;
+    font-size: 20px;
+    padding: 8px 0;
+    transition: 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    &:hover {
+        background: black;
+        color: white;
+    }
+}
+
+.CardDetails {
     margin-top: 10px;
 }
 
@@ -23,7 +51,7 @@
 }
 
 .CategoryTitle {
-    font-size: 20px;
+    font-weight: 600;
     margin: 2px 0;
 }
 
@@ -32,4 +60,46 @@
 .ProductPrice {
     font-size: 18px;
     margin: 2px 0;
+}
+
+@include mq($break: $productCard-md-break, $custom: true) {
+    .Product {
+        position: relative;
+    }
+
+    .ProductOverlay {
+        @include position($p:absolute, $top:0, $left:0, $zIndex: -1);
+        @include square(100%);
+    }
+
+    .CardDetails {
+        position: absolute;
+        right: 0;
+        bottom: 40px;
+        width: 108%;
+
+    }
+
+    .ProductDetails {
+        background: rgba(black, .6);
+        color: white;
+        padding: 0 6px;
+    }
+
+    .CategoryTitle {
+        font-size: $font-med;
+    }
+
+    .ProductDetails {
+        @include flex($just:space-between, $align:center);
+        padding-right: 16px;
+    }
+
+    .ProductTitle {
+        font-size: $font-larger;
+        font-weight: 600;
+        max-width: 130px;
+    }
+
+
 }

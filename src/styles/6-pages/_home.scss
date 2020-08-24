@@ -1,16 +1,11 @@
 .home {
     .home-jumbotron {
-        height: 465px;
+        height: 60vh;
+        padding-top: 50px;
+        @include flex($align:center, $just:flex-start);
         background-color: rgba(white, 0.7);
         color: black;
-        @include flex($center: true);
-        text-align: center;
-    }
 
-    .link {
-        padding-bottom: 6px;
-        border-bottom: 2px solid;
-        font-weight: 700;
     }
 
     .business-msg {
@@ -32,5 +27,167 @@
         grid-template-columns: 1fr 1fr;
         row-gap: 30px;
         column-gap: 4%;
+    }
+
+
+
+    //Contact Boxs
+    .contact-box {
+        height: 360px;
+        position: relative;
+    }
+
+    .contact-box-container {
+        @include square(100%);
+    }
+
+    .contact-box-overlay {
+        @include position($p: absolute, $top:0, $left:0, $zIndex: -1);
+        @include square(100%);
+    }
+
+    .contact-box-img {
+        @include position($p:relative, $zIndex: -2);
+        @include gatsby-image-full($directParent:false);
+        @include square(100%);
+    }
+
+    .contact-box-content {
+        position: absolute;
+        top: 17%;
+        left: 15%;
+        max-height: 83%;
+        max-width: 85%;
+
+    }
+
+
+
+    //Store locatioin
+    .store-location {
+        .contact-box-overlay {
+            background: rgba(white, .5);
+        }
+
+        .contact-box-content {
+            color: black;
+        }
+    }
+
+    .contact-box-location-list {
+        @extend .remove-default-list-style;
+        margin-bottom: 30px;
+        font-size: 20px;
+    }
+
+    .contact-box-location-item {
+        line-height: 1.5;
+    }
+
+    //Store media
+    .store-media {
+        .contact-box-overlay {
+            background: rgba(black, .5);
+        }
+
+        .contact-box-content {
+            color: white;
+        }
+
+        .contact-box-title {
+            max-width: 200px;
+        }
+
+    }
+
+
+    //Default breakpoints
+    @include mq('med') {
+        .home-jumbotron {
+            height: 80vh;
+        }
+
+        .products {
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: 5%;
+            justify-content: center;
+        }
+    }
+
+    @include mq('large') {
+        .products {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .home-jumbotron {
+            height: 100vh;
+        }
+
+        //contact boxs
+        .contact-boxs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .contact-box-title {
+            font-size: $font-med;
+        }
+
+        .store-media .contact-box-title {
+            max-width: 300px;
+        }
+
+        .contact-box {
+            height: 470px;
+        }
+    }
+}
+
+//Style link
+.link {
+    padding-bottom: 6px;
+    border-bottom: 2px solid;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 2px;
+
+    //link cool transition
+    transition: color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease !important;
+    transition-property: color, border-color, opacity !important;
+    transition-duration: 0.3s, 0.3s, 0.3s !important;
+    transition-timing-function: ease, ease, ease !important;
+    transition-delay: 0s, 0s, 0s !important;
+
+    &:hover {
+        border-bottom: 0px;
+    }
+}
+
+
+//Style product card
+.product {
+    .product-img {
+        transition: 1s linear;
+        transform-origin: bottom left;
+    }
+
+    &:hover .product-img {
+        transform: scale(1.05);
+    }
+}
+
+.product-img-container {
+    overflow: hidden;
+}
+
+@include mq($break: $productCard-md-break, $custom: true) {
+    .product-overlay {
+        background: rgba(white, .3);
+        transition: 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+
+    .product:hover .product-overlay {
+        background: rgba(white, .1);
     }
 }

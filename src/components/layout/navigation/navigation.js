@@ -13,7 +13,10 @@ const navigation = () => {
                 <div className="nav__brand"><GiGasMask /></div>
 
                 <div className="nav__user-section">
-                    <GrSearch className="nav-icon" />
+                    <GrSearch className="nav__search-icon" />
+                    <div className="nav__cart-num">
+                        <span>3</span>
+                    </div>
                 </div>
             </nav>
         </React.Fragment>

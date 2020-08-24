@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const aspectRatio = ({ height, children }) => {
+const aspectRatio = ({ height, children, styleClass }) => {
     return (
-        <Wrapper height={height}>
+        <Wrapper height={height} className={styleClass}>
             <div className='aspectRatio__wrapper'>
                 <div className='aspectRatio__container'>
                     {children}

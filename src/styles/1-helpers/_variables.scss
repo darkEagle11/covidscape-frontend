@@ -1,6 +1,6 @@
 $breakpoints:('xs':400px,
     'sm':599px, //Must be one less than med
-    'med':600px,
+    'med':700px,
     'large':1000px,
 );
 $font-stack-primary: 'Josefin Sans',
@@ -29,3 +29,6 @@ $color-theme-primary:rgb(216, 124, 114);
 $color-theme-secondary:#2e2e2e;
 $color-theme-tertiary:$white;
 $color-theme-third:$white;
+
+$productCard-md-break: 700px;
+$contextBox-lg-break: 1000px;

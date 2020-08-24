@@ -1,14 +1,34 @@
 import React from 'react'
 import Layout from '../components/layout/layout';
+import GatsbyImage from 'gatsby-image';
 
 import BackgroundImage from 'gatsby-background-image';
 import { graphql, useStaticQuery } from "gatsby"
 import ProductCard from '../components/productCard/productCard';
+import categories from '../constants/categories';
+import products from '../constants/products';
 
 
 const query = graphql`
+
 {
-  file(relativePath: {eq: "covid-bg.jpeg"}) {
+  file(relativePath: {eq: "couple-walking2.jpg"}) {
+    childImageSharp {
+      fluid {
+        ...GatsbyImageSharpFluid_withWebp_tracedSVG
+      }
+    }
+  }
+
+  heroBg2: file(relativePath: {eq: "washing-hands2.jpeg"}) {
+    childImageSharp {
+      fluid {
+        ...GatsbyImageSharpFluid_withWebp_tracedSVG
+      }
+    }
+  }
+
+  heroBg3: file(relativePath: {eq: "gov-covid.jpeg"}) {
     childImageSharp {
       fluid {
         ...GatsbyImageSharpFluid_withWebp_tracedSVG
@@ -19,55 +39,146 @@ const query = graphql`
 `;
 
 
+const ContactBox = (props) => {
+  return (
+    <div className={`contact-box ${props.styleClass}`}>
+      <div className="contact-box-container">
+        <div className={`contact-box-overlay ${props.overlayClass}`}></div>
+        <GatsbyImage
+          fluid={props.bgImg}
+          className="contact-box-img" />
+        <div className="contact-box-content">
+          {props.children}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const StyledProductCard = (props) => {
+  return (
+    <ProductCard
+      overlayStyle="product-overlay"
+      imgContainerStyle="product-img-container"
+      imageStyle="product-img"
+      styleClass="product"
+      {...props} />
+  )
+}
+
+
+
 const Index = () => {
   const data = useStaticQuery(query);
+  const Hero = () => {
+    return (
+      <BackgroundImage
+        Tag="header"
+        fluid={data.file.childImageSharp.fluid}
+        preserveStackingContext={true}
+        className="home-jumbotron">
+
+        <article className="container">
+          <h2>Staying safe,<br />doesn't mean staying dry </h2>
+          <a className="link" href="#">Shop Now</a>
+        </article>
+      </BackgroundImage>
+    )
+  }
+
+  const BusinessMsg = () => {
+    return (
+      <section className="business-msg section-padding">
+        <div className="business-msg__container container">
+          <h2 className="business-msg__title">Show your style,<br /> and protect others</h2>
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo dicta velit, beatae laborum voluptatem, atque aperiam sequi repellat fugit sunt iusto mollitia nobis voluptas! Libero minima dolorum optio nostrum suscipit!</p>
+          <button className="btn btn-lg btn-dark">View all our products</button>
+        </div>
+      </section>
+    )
+  }
+
+  const Categories = () => {
+    return (
+      <section className="section-padding">
+        <div className="container">
+          <div className="products">
+            {categories.map((category, index) =>
+              <StyledProductCard
+                key={`category-${index}`}
+                type="category"
+                title={category.title}
+                items={category.items}
+                image={data.file.childImageSharp.fluid} />
+            )}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  const Products = () => {
+    return (
+      <section className="section-padding">
+        <div className="container">
+          <div className="products">
+            {products.map((product, index) =>
+              <StyledProductCard
+                key={`product-${index}`}
+                type="product"
+                title={product.title}
+                price={product.price}
+                image={data.file.childImageSharp.fluid} />
+            )}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  const ContentBoxs = () => {
+    return (
+      <section className="section-padding">
+        <div className="contact-boxs">
+          <ContactBox
+            bgImg={data.file.childImageSharp.fluid}
+            styleClass="store-location">
+            <h3>Visit Us</h3>
+            <ul className="contact-box-location-list">
+              <li className="contact-box-location-item">Head Office</li>
+              <li className="contact-box-location-item">16 Boulevard Saint-Germain</li>
+              <li className="contact-box-location-item">75005 Paris</li>
+            </ul>
+            <a className="link" href="#">Contact Us</a>
+          </ContactBox>
+
+          <ContactBox
+            bgImg={data.file.childImageSharp.fluid}
+            styleClass="store-media">
+            <h3 className="contact-box-title">Follow Our Store Instagram</h3>
+            <a className="link" href="#">@covidscape</a>
+          </ContactBox>
+        </div>
+      </section>
+    )
+  }
+
 
   return (
     <Layout>
       <div className="home">
-        <BackgroundImage
-          Tag="header"
-          fluid={data.file.childImageSharp.fluid}
-          preserveStackingContext={true}
-          className="home-jumbotron">
-
-          <article className="container">
-            <h2>Staying safe,<br />doesn't mean staying dry </h2>
-            <a className="link" href="#">Shop Now</a>
-          </article>
-        </BackgroundImage>
-
+        <Hero />
         <main>
-          <section className="business-msg section-padding">
-            <div className="business-msg__container container">
-              <h2 className="business-msg__title">Show your style,<br /> and protect others</h2>
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo dicta velit, beatae laborum voluptatem, atque aperiam sequi repellat fugit sunt iusto mollitia nobis voluptas! Libero minima dolorum optio nostrum suscipit!</p>
-            </div>
-          </section>
-
-          <section className="section-padding">
-            <div className="container">
-              <div className="products">
-                <ProductCard
-                  image={data.file.childImageSharp.fluid}
-                  type="category"
-                  title="Masks"
-                  items={10} />
-                <ProductCard
-                  image={data.file.childImageSharp.fluid}
-                  title="Elphant Chair"
-                  price={158} />
-              </div>
-            </div>
-
-
-
-          </section>
-
+          <BusinessMsg />
+          <Categories />
+          <Products />
+          <ContentBoxs />
         </main>
       </div>
     </Layout>
   )
 }
+
+
 
 export default Index
