@@ -15,7 +15,7 @@ const productCard = ({ image, type = 'product', ...props }) => {
         const categoryInfo = (
             <div className={`${classes.CategoryDetails} ${classes.CardDetails}`}>
                 <p className={classes.CategoryItems}>{props.items} products</p>
-                <h3 className={classes.CategoryTitle}>{props.title || 'Category'}</h3>
+                <h3 className={classes.CategoryTitle}><span className={classes.CategoryTitleText}>{props.title || 'Category'}</span></h3>
             </div>
         );
 

@@ -22,14 +22,6 @@
         margin-bottom: 24px;
     }
 
-    .products {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        row-gap: 30px;
-        column-gap: 4%;
-    }
-
-
 
     //Contact Boxs
     .contact-box {
@@ -62,8 +54,11 @@
     }
 
 
+    .contact-box-link {
+        @include disappearHoverLink();
+    }
 
-    //Store locatioin
+    //Store location
     .store-location {
         .contact-box-overlay {
             background: rgba(white, .5);
@@ -106,19 +101,9 @@
         .home-jumbotron {
             height: 80vh;
         }
-
-        .products {
-            grid-template-columns: repeat(3, 1fr);
-            column-gap: 5%;
-            justify-content: center;
-        }
     }
 
     @include mq('large') {
-        .products {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
         .home-jumbotron {
             height: 100vh;
         }
@@ -140,54 +125,5 @@
         .contact-box {
             height: 470px;
         }
-    }
-}
-
-//Style link
-.link {
-    padding-bottom: 6px;
-    border-bottom: 2px solid;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 13px;
-    letter-spacing: 2px;
-
-    //link cool transition
-    transition: color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease !important;
-    transition-property: color, border-color, opacity !important;
-    transition-duration: 0.3s, 0.3s, 0.3s !important;
-    transition-timing-function: ease, ease, ease !important;
-    transition-delay: 0s, 0s, 0s !important;
-
-    &:hover {
-        border-bottom: 0px;
-    }
-}
-
-
-//Style product card
-.product {
-    .product-img {
-        transition: 1s linear;
-        transform-origin: bottom left;
-    }
-
-    &:hover .product-img {
-        transform: scale(1.05);
-    }
-}
-
-.product-img-container {
-    overflow: hidden;
-}
-
-@include mq($break: $productCard-md-break, $custom: true) {
-    .product-overlay {
-        background: rgba(white, .3);
-        transition: 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
-    }
-
-    .product:hover .product-overlay {
-        background: rgba(white, .1);
     }
 }

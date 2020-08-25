@@ -1,6 +1,6 @@
 @import '../../styles/defaultImports.scss';
 
-$product-btn-brdr-color: 1px solid rgb(231, 231, 231);
+$product-btn-brdr: 1px solid rgb(231, 231, 231);
 
 .Product {
     width: 100%;
@@ -15,12 +15,13 @@ $product-btn-brdr-color: 1px solid rgb(231, 231, 231);
 
 .ProductBtns {
     position: absolute;
-    bottom: 0;
+    top: 0;
     display: flex;
-    width: 100%;
+    flex-direction: column;
+    width: 40px;
 
-    & .ProductBtn:first-child {
-        border-left: $product-btn-brdr-color;
+    & .ProductBtn:last-child {
+        border-bottom: $product-btn-brdr;
     }
 }
 
@@ -28,8 +29,8 @@ $product-btn-brdr-color: 1px solid rgb(231, 231, 231);
     @include flex($center:true);
     flex: 1 1 0;
     background: white;
-    border: $product-btn-brdr-color;
-    border-left: none;
+    border: $product-btn-brdr;
+    border-bottom: none;
     font-size: 20px;
     padding: 8px 0;
     transition: 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -39,6 +40,7 @@ $product-btn-brdr-color: 1px solid rgb(231, 231, 231);
         color: white;
     }
 }
+
 
 .CardDetails {
     margin-top: 10px;
@@ -62,10 +64,12 @@ $product-btn-brdr-color: 1px solid rgb(231, 231, 231);
     margin: 2px 0;
 }
 
+
 @include mq($break: $productCard-md-break, $custom: true) {
     .Product {
         position: relative;
     }
+
 
     .ProductOverlay {
         @include position($p:absolute, $top:0, $left:0, $zIndex: -1);
@@ -75,19 +79,16 @@ $product-btn-brdr-color: 1px solid rgb(231, 231, 231);
     .CardDetails {
         position: absolute;
         right: 0;
-        bottom: 40px;
+        bottom: 20px;
         width: 108%;
 
     }
 
+    //Product
     .ProductDetails {
         background: rgba(black, .6);
         color: white;
         padding: 0 6px;
-    }
-
-    .CategoryTitle {
-        font-size: $font-med;
     }
 
     .ProductDetails {
@@ -101,5 +102,56 @@ $product-btn-brdr-color: 1px solid rgb(231, 231, 231);
         max-width: 130px;
     }
 
+    //Category
+    .CategoryTitle {
+        font-size: $font-med;
+        display: inline-block;
+    }
 
+    .CategoryTitleText {
+        position: relative;
+        @include animatedWidthLink();
+    }
+
+    @include expandAnimatedWidthLink('.Product:hover .CategoryTitleText');
+
+
+
+}
+
+@include mq('large') {
+
+
+    .ProductBtns {
+        top: 10px;
+        left: 3%;
+        transform: translate(-100px);
+        transition: .3s;
+    }
+
+    .Product:hover .ProductBtns {
+        transform: translate(0);
+    }
+
+    .ProductBtn,
+    .ProductBtns .ProductBtn:last-child {
+        border-color: black;
+        border-width: 2px;
+    }
+
+
+    .ProductBtn {
+        background: rgba(white, .6);
+        color: black;
+        font-weight: 500;
+
+        &:hover {
+            background: black;
+        }
+    }
+
+    .ProductDetails {
+        bottom: 0;
+        width: 100%;
+    }
 }

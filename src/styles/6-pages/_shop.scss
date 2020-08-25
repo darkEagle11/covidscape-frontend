@@ -1,0 +1,36 @@
+.shop__jumbotron {
+    padding-top: 50px;
+    height: 50vh;
+    background-color: rgba(white, .5);
+}
+
+.shop__jumbotron.categories-dropdown {
+    height: 80vh;
+}
+
+.shop__breadcrumb-list {
+    margin-bottom: 15px;
+}
+
+.shop__jumbotron-title {
+    margin-bottom: 15px;
+    margin-top: 0;
+    font-weight: 700;
+}
+
+.shop__jumbotron-content {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.shop__jumbotron-categories-list {
+    @extend .remove-default-list-style;
+    // font-weight: 400;
+}
+
+.shop__jumbotron-categories-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    /* padding: 10px 20px; */
+}

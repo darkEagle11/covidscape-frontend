@@ -3,13 +3,16 @@ import Navigation from './navigation/navigation';
 import Footer from './footer/footer';
 import '../../styles/main.scss';
 
-const layout = ({ children }) => {
+const layout = ({ children, layoutPadding = false }) => {
     return (
-        <React.Fragment>
+        <div className={`layout ${layoutPadding ? 'layout-padding' : null}`}>
             <Navigation />
-            {children}
+            <div className="site-content">
+                {children}
+            </div>
+
             <Footer />
-        </React.Fragment>
+        </div>
     )
 }
 

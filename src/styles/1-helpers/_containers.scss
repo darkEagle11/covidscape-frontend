@@ -1,19 +1,35 @@
-.container,
 .text-container {
     padding: 0 1rem;
 }
 
+.container {
+    padding: 0 1rem;
 
-@include mq('med') {
-    .container {
+    @include mq('med') {
         width: 90%;
         margin: 0 auto;
         padding: 0;
     }
+
+    @include mq('large') {
+        max-width: 80%;
+    }
+
 }
 
-@include mq('large') {
-    .container {
-        max-width: 80%;
+.products {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 30px;
+    column-gap: 4%;
+
+    @include mq('med') {
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 5%;
+        justify-content: center;
+    }
+
+    @include mq('large') {
+        grid-template-columns: repeat(4, 1fr);
     }
 }

@@ -4,9 +4,9 @@ import GatsbyImage from 'gatsby-image';
 
 import BackgroundImage from 'gatsby-background-image';
 import { graphql, useStaticQuery } from "gatsby"
-import ProductCard from '../components/productCard/productCard';
 import categories from '../constants/categories';
 import products from '../constants/products';
+import StyledProductCard from '../components/styledProductCard/styledProductCard';
 
 
 const query = graphql`
@@ -20,7 +20,7 @@ const query = graphql`
     }
   }
 
-  heroBg2: file(relativePath: {eq: "washing-hands2.jpeg"}) {
+  heroBg2: file(relativePath: {eq: "washing-hands.jpeg"}) {
     childImageSharp {
       fluid {
         ...GatsbyImageSharpFluid_withWebp_tracedSVG
@@ -55,17 +55,6 @@ const ContactBox = (props) => {
   )
 }
 
-const StyledProductCard = (props) => {
-  return (
-    <ProductCard
-      overlayStyle="product-overlay"
-      imgContainerStyle="product-img-container"
-      imageStyle="product-img"
-      styleClass="product"
-      {...props} />
-  )
-}
-
 
 
 const Index = () => {
@@ -82,7 +71,7 @@ const Index = () => {
           <h2>Staying safe,<br />doesn't mean staying dry </h2>
           <a className="link" href="#">Shop Now</a>
         </article>
-      </BackgroundImage>
+      </BackgroundImage >
     )
   }
 
@@ -149,14 +138,14 @@ const Index = () => {
               <li className="contact-box-location-item">16 Boulevard Saint-Germain</li>
               <li className="contact-box-location-item">75005 Paris</li>
             </ul>
-            <a className="link" href="#">Contact Us</a>
+            <a className="contact-box-link" href="#">Contact Us</a>
           </ContactBox>
 
           <ContactBox
             bgImg={data.file.childImageSharp.fluid}
             styleClass="store-media">
             <h3 className="contact-box-title">Follow Our Store Instagram</h3>
-            <a className="link" href="#">@covidscape</a>
+            <a className="contact-box-link" href="#">@covidscape</a>
           </ContactBox>
         </div>
       </section>
