@@ -16,6 +16,15 @@ module.exports = {
         name: `assets`,
         path: `${__dirname}/src/assets/`,
       }
+    },
+    {
+      resolve: `gatsby-source-strapi`,
+      options: {
+        apiURL: `http://localhost:1337`,
+        queryLimit: 1000, // Default to 100
+        contentTypes: [`categories`, `products`],
+        singleTypes: [],
+      }
     }
-  ],
+  ]
 }

@@ -3,9 +3,9 @@ import Navigation from './navigation/navigation';
 import Footer from './footer/footer';
 import '../../styles/main.scss';
 
-const layout = ({ children, layoutPadding = false }) => {
+const layout = ({ children, addPadding = false }) => {
     return (
-        <div className={`layout ${layoutPadding ? 'layout-padding' : null}`}>
+        <div className={`layout ${addPadding ? 'layout-padding' : null}`}>
             <Navigation />
             <div className="site-content">
                 {children}

@@ -14,6 +14,7 @@
 
 .ProductImgContainer {
     overflow: hidden;
+    border: 1px solid rgb(235, 235, 235);
 }
 
 @include mq($break: $productCard-md-break, $custom: true) {
@@ -25,4 +26,5 @@
     .Product:hover .ProductOverlay {
         background: rgba(white, .1);
     }
+
 }

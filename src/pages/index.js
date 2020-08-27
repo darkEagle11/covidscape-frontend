@@ -3,40 +3,54 @@ import Layout from '../components/layout/layout';
 import GatsbyImage from 'gatsby-image';
 
 import BackgroundImage from 'gatsby-background-image';
-import { graphql, useStaticQuery } from "gatsby"
-import categories from '../constants/categories';
-import products from '../constants/products';
+import { graphql, useStaticQuery } from "gatsby";
 import StyledProductCard from '../components/styledProductCard/styledProductCard';
 
+export const query = graphql`
+  {
+    allStrapiCategories {
+      categories: nodes {
+        id
+        name
+        slug
+        products {
+          id
+        }
+        image {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
+      }
+    }
 
-const query = graphql`
+    allStrapiProducts {
+      nodes {
+        title
+        slug
+        price
+        image {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
+      }
+    }
 
-{
-  file(relativePath: {eq: "couple-walking2.jpg"}) {
-    childImageSharp {
-      fluid {
-        ...GatsbyImageSharpFluid_withWebp_tracedSVG
+    file(relativePath: {eq: "couple-walking2.jpg"}) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
+        }
       }
     }
   }
+`
 
-  heroBg2: file(relativePath: {eq: "washing-hands.jpeg"}) {
-    childImageSharp {
-      fluid {
-        ...GatsbyImageSharpFluid_withWebp_tracedSVG
-      }
-    }
-  }
-
-  heroBg3: file(relativePath: {eq: "gov-covid.jpeg"}) {
-    childImageSharp {
-      fluid {
-        ...GatsbyImageSharpFluid_withWebp_tracedSVG
-      }
-    }
-  }
-}
-`;
 
 
 const ContactBox = (props) => {
@@ -57,8 +71,9 @@ const ContactBox = (props) => {
 
 
 
-const Index = () => {
-  const data = useStaticQuery(query);
+const Index = ({ data }) => {
+  const categories = data.allStrapiCategories.categories;
+  const products = data.allStrapiProducts.nodes;
   const Hero = () => {
     return (
       <BackgroundImage
@@ -69,7 +84,7 @@ const Index = () => {
 
         <article className="container">
           <h2>Staying safe,<br />doesn't mean staying dry </h2>
-          <a className="link" href="#">Shop Now</a>
+          <a className="home-jumbotron__shop-link" href="#">Shop Now</a>
         </article>
       </BackgroundImage >
     )
@@ -88,18 +103,21 @@ const Index = () => {
   }
 
   const Categories = () => {
+
     return (
       <section className="section-padding">
         <div className="container">
           <div className="products">
-            {categories.map((category, index) =>
-              <StyledProductCard
-                key={`category-${index}`}
+            {categories.map((category, index) => {
+              const itemsSet = new Set(category.products.map(product => product.id));
+              return <StyledProductCard
+                key={category.id}
                 type="category"
-                title={category.title}
-                items={category.items}
-                image={data.file.childImageSharp.fluid} />
-            )}
+                link={`/categories/${category.slug}`}
+                title={category.name}
+                items={itemsSet.size}
+                image={category.image.childImageSharp.fluid} />
+            })}
           </div>
         </div>
       </section>
@@ -111,14 +129,16 @@ const Index = () => {
       <section className="section-padding">
         <div className="container">
           <div className="products">
-            {products.map((product, index) =>
-              <StyledProductCard
+            {products.map((product, index) => {
+              console.log(product);
+              return <StyledProductCard
                 key={`product-${index}`}
                 type="product"
+                link={`/products/${product.slug}`}
                 title={product.title}
                 price={product.price}
-                image={data.file.childImageSharp.fluid} />
-            )}
+                image={product.image.childImageSharp.fluid} />
+            })}
           </div>
         </div>
       </section>

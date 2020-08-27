@@ -121,7 +121,6 @@
 //=============Gatsby Image=============
 //Gatsby image styles 
 @mixin gatsby-image-full-styles($brdr-rad:0, $autoHeight: false, $directParent:false) {
-    @include square(100%);
 
     @if $autoHeight {
         height: auto;
@@ -132,6 +131,7 @@
 
 //Determine how to select the gatsby image because css classes won't won't work in css modules
 @mixin gatsby-image-full($brdr-rad:0, $autoHeight: false, $directParent:false) {
+    @include square(100%);
 
     @if $directParent {
         &>div {

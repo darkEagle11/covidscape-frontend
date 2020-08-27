@@ -20,6 +20,7 @@ $product-btn-brdr: 1px solid rgb(231, 231, 231);
     flex-direction: column;
     width: 40px;
 
+
     & .ProductBtn:last-child {
         border-bottom: $product-btn-brdr;
     }
@@ -31,6 +32,7 @@ $product-btn-brdr: 1px solid rgb(231, 231, 231);
     background: white;
     border: $product-btn-brdr;
     border-bottom: none;
+    outline: none;
     font-size: 20px;
     padding: 8px 0;
     transition: 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);

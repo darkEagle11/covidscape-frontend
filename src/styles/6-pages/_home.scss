@@ -5,7 +5,10 @@
         @include flex($align:center, $just:flex-start);
         background-color: rgba(white, 0.7);
         color: black;
+    }
 
+    .home-jumbotron__shop-link {
+        @include disappearHoverLink();
     }
 
     .business-msg {

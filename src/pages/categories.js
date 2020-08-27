@@ -4,31 +4,43 @@ import categories from '../constants/categories';
 import StyledProductCard from '../components/styledProductCard/styledProductCard';
 import { graphql, useStaticQuery } from 'gatsby';
 
-const query = graphql`
-{
-   file(relativePath: {eq: "gov-covid.jpeg"}) {
-    childImageSharp {
-      fluid {
-        ...GatsbyImageSharpFluid_withWebp_tracedSVG
+export const query = graphql`
+  {
+    allStrapiCategories {
+      categories: nodes {
+        id
+        name
+        slug
+        products {
+          id
+        }
+        image {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
       }
     }
   }
-}
-`;
+`
 
-const Categories = () => {
-    const data = useStaticQuery(query);
+
+const Categories = ({ data }) => {
+    const categories = data.allStrapiCategories.categories;
     const Categories = () => {
         return (
             <div className="products">
-                {categories.map((category, index) =>
-                    <StyledProductCard
+                {categories.map((category, index) => {
+                    const itemsSet = new Set(category.products.map(product => product.id));
+                    return <StyledProductCard
                         key={`category-${index}`}
                         type="category"
-                        title={category.title}
-                        items={category.items}
-                        image={data.file.childImageSharp.fluid} />
-                )}
+                        title={category.name}
+                        items={itemsSet.size}
+                        image={category.image.childImageSharp.fluid} />
+                })}
             </div>
         )
     }
