@@ -12,13 +12,15 @@ const footer = () => {
                 <div className="container">
                     {/* For each array create a new footer widget */}
                     <div className="footer__page-links-widgets">
-                        {footerWidgets.map(footerWidget => {
+                        {footerWidgets.map((footerWidget, index) => {
                             return (
-                                <div className="footer__widget">
+                                <div className="footer__widget" key={index}>
                                     <ul className="footer__linklist">
                                         {/* For each link in the widget create a new list */}
-                                        {footerWidget.map(list =>
-                                            <li className="footer__link-item"><a className="footer__link" href={list.link}>{list.label}</a></li>
+                                        {footerWidget.map((list, index) =>
+                                            <li className="footer__link-item" key={index}>
+                                                <a className="footer__link" href={list.link}>{list.label}</a>
+                                            </li>
                                         )}
                                     </ul>
                                 </div>
@@ -49,8 +51,8 @@ const footer = () => {
                             </div>
 
                             <ul className="footer__copyright-widget payment-cards">
-                                {PaymentCards.map(card =>
-                                    <li className="payment-card-icon">{card}</li>
+                                {PaymentCards.map((card, index) =>
+                                    <li className="payment-card-icon" key={`card-${index}`}>{card}</li>
                                 )}
                             </ul>
                         </div>

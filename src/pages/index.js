@@ -41,7 +41,7 @@ export const query = graphql`
       }
     }
 
-    file(relativePath: {eq: "couple-walking2.jpg"}) {
+    file(relativePath: {eq: "couple-walking.jpg"}) {
       childImageSharp {
         fluid {
           ...GatsbyImageSharpFluid_withWebp_tracedSVG
@@ -130,7 +130,6 @@ const Index = ({ data }) => {
         <div className="container">
           <div className="products">
             {products.map((product, index) => {
-              console.log(product);
               return <StyledProductCard
                 key={`product-${index}`}
                 type="product"

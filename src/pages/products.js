@@ -44,7 +44,6 @@ const AllProducts = ({ data }) => {
 
     const [categoriesDropdown, setCategoriesDropdown] = useState(false);
     const allProducts = data.allStrapiProducts.nodes;
-    console.log(allProducts);
 
     const Products = () => {
         return (

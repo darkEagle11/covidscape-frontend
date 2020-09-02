@@ -1,8 +1,7 @@
 import React from 'react';
 import Layout from '../components/layout/layout';
-import categories from '../constants/categories';
 import StyledProductCard from '../components/styledProductCard/styledProductCard';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql } from 'gatsby';
 
 export const query = graphql`
   {
@@ -28,40 +27,41 @@ export const query = graphql`
 
 
 const Categories = ({ data }) => {
-    const categories = data.allStrapiCategories.categories;
-    const Categories = () => {
-        return (
-            <div className="products">
-                {categories.map((category, index) => {
-                    const itemsSet = new Set(category.products.map(product => product.id));
-                    return <StyledProductCard
-                        key={`category-${index}`}
-                        type="category"
-                        title={category.name}
-                        items={itemsSet.size}
-                        image={category.image.childImageSharp.fluid} />
-                })}
-            </div>
-        )
-    }
+  const categories = data.allStrapiCategories.categories;
+  const Categories = () => {
     return (
-        <Layout>
-            <header className="categories__jumbotron">
-                <div className="categories__jumbotron-container">
-                    <article className="categories__jumbotron-content">
-                        <p className="categories__jumbotron-dest">Home / Categories</p>
-                        <h1 className="categories__jumbotron-title">Categories</h1>
-                    </article>
-                </div>
-            </header>
-
-            <section className="categories-section">
-                <div className="container">
-                    <Categories />
-                </div>
-            </section>
-        </Layout>
+      <div className="products">
+        {categories.map((category, index) => {
+          const itemsSet = new Set(category.products.map(product => product.id));
+          return <StyledProductCard
+            key={`category-${index}`}
+            type="category"
+            link={`/categories/${category.slug}`}
+            title={category.name}
+            items={itemsSet.size}
+            image={category.image.childImageSharp.fluid} />
+        })}
+      </div>
     )
+  }
+  return (
+    <Layout>
+      <header className="categories__jumbotron">
+        <div className="categories__jumbotron-container">
+          <article className="categories__jumbotron-content">
+            <p className="categories__jumbotron-dest">Home / Categories</p>
+            <h1 className="categories__jumbotron-title">Categories</h1>
+          </article>
+        </div>
+      </header>
+
+      <section className="categories-section">
+        <div className="container">
+          <Categories />
+        </div>
+      </section>
+    </Layout>
+  )
 }
 
 export default Categories

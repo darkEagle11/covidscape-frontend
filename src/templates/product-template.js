@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../components/layout/layout';
-import { graphql, useStaticQuery } from "gatsby";
+import { connect } from 'react-redux';
+import * as actions from '../store/actions';
+import { graphql } from "gatsby";
 import GatsbyImage from 'gatsby-image';
 import AspectRatio from '../components/aspectRatio/aspectRatio';
-
+import { FiCheckCircle } from 'react-icons/fi';
+import ItemQuantity from '../components/itemQuantity/itemQuantity';
 
 export const query = graphql`
 query GetProduct($slug: String){
     product: strapiProducts(slug: {eq: $slug}) {
       title
-      strapiId
+      id
       price
       description
+      slug
       image {
         childImageSharp {
           fluid {
@@ -23,8 +27,37 @@ query GetProduct($slug: String){
   }
 `
 
-const Product = ({ data }) => {
-    const { title, strapiId, price, description, image } = data.product;
+const Product = ({ data: { product }, ...props }) => {
+    const { title, price, description, image } = product;
+
+
+    const [itemQuantity, setItemQuantity] = useState(1);
+    const [addingToCart, setAddingToCart] = useState(false);
+    const [cartText, setCartText] = useState(null);
+
+
+    //If the page is adding a product change the content, and functionality
+    useEffect(() => {
+        if (addingToCart) {
+            setCartText(<FiCheckCircle />);
+        }
+        else {
+            setCartText("Add To Cart")
+        }
+    }, [addingToCart]);
+
+
+
+
+
+    const addToCart = (product, quantity) => {
+        setAddingToCart(true);
+        props.onAddToCart(product, quantity);
+        props.onOpenCartSidebar();
+        setTimeout(() => setAddingToCart(false), 2000)
+    };
+
+
     return (
         <Layout>
             <main className="product-page">
@@ -42,18 +75,16 @@ const Product = ({ data }) => {
                                 <p className="single-product__price"><span className="single-product__dollar-sign">$</span>{price}</p>
 
                                 <p className="single-product__description">{description}</p>
+                                <ItemQuantity
+                                    expand
+                                    num={itemQuantity}
+                                    getQuantity={setItemQuantity}
+                                    styleClass="single-product__item-quantity" />
 
-                                <div className="single-product__item-quantity">
-                                    <button className="item-quantity__change">-</button>
-                                    <input type="text" name="quantity" value="11" min="1" class="item-quantity__num" pattern="[0-9]*" />
-                                    <button className="item-quantity__change">+</button>
-                                </div>
-                                <button className="cart-btn">Add to cart</button>
-
-
-
+                                <button
+                                    className={`cart-btn ${addingToCart ? 'active' : ''}`}
+                                    onClick={() => addToCart(product, itemQuantity)}>{cartText}</button>
                             </div>
-
                         </div>
                     </div>
 
@@ -65,5 +96,10 @@ const Product = ({ data }) => {
     )
 }
 
-
-export default Product
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddToCart: (item, quantity) => dispatch(actions.addToCart(item, quantity)),
+        onOpenCartSidebar: () => dispatch(actions.openCartSidebar()),
+    }
+}
+export default connect(null, mapDispatchToProps)(Product)

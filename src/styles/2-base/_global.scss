@@ -37,10 +37,12 @@
     outline: none;
 }
 
-
-
 .remove-default-list-style {
     list-style-type: none;
     padding: 0;
     margin: 0;
+}
+
+.gatsby-image-full {
+    @include gatsby-image-full();
 }
